@@ -20,13 +20,16 @@ KEY = '30040272-179178153c29e3da83ceec1ea';
 componentDidUpdate(prevProps, prevState) {
   const prevWord = prevProps.searchWord;
   const nextWord = this.props.searchWord;
- 
-  // let page=1
-  if (prevWord !== nextWord) {let page=1
+ const {page}=this.props;
+  
+  if (prevWord !== nextWord||prevProps.page!==page) {
+
     this.setState({ status: Status.PENDING });
   fetch(`${this.BASEURL}?key=${this.KEY}&q=${nextWord}&image_type=photo&orientation=horizontal&safesearch=true&per_page=12&page=${page}`)
   .then(response=>response.json())
-   .then(photos=>this.setState({photos:photos.hits,status: Status.RESOLVED  }))
+   .then(photos=>this.setState({
+    photos:[...prevState.photos,...photos.hits],
+    status: Status.RESOLVED  }))
    .catch(error => this.setState({ error, status: Status.REJECTED }))}
 }
 render(){const {photos, status,error}=this.state

@@ -11,53 +11,37 @@ import { ImageGallery } from 'components/ImageGallery/ImageGallery';
 
 export class App extends Component {
   state = { searchWord:"",
+  page:1
     
   };
 
-//   componentDidUpdate(prevProps, prevState) {
-//     const prevWord = prevState.searchWord;
-//     const nextWord = this.state.searchWord;
-//     const { photos } = this.state;
-//     if (prevWord !== nextWord) {let page=1
-//       // this.setState({ status: Status.PENDING });
-// console.log("Ch",prevWord, nextWord)
-// // const BASEURL = 'https://pixabay.com/api/';
-// // const keyApiPix = '30040272-179178153c29e3da83ceec1ea';
-// fetch(`${BASEURL}?key=${keyApiPix}&q=${nextWord}&image_type=photo&orientation=horizontal&safesearch=true&per_page=12&page=${page}`)
-// .then(response=>response.json())
-//  .then(photos=>this.setState({photos:[...photos, ...photos.hits]}))
- 
-     
-//       // fetchPhotos
-//       //     .fetchApi(nextName)
-//       //     .then(pokemon => this.setState({ pokemon, status: Status.RESOLVED }))
-//       //     .catch(error => this.setState({ error, status: Status.REJECTED }));
-    
-//     }
-//   }
+
 
   handleFormSubmit = searchWord => {
-    this.setState({ searchWord });
-    console.log(searchWord)
+    this.setState({ searchWord,page:1 });
+
 
   };
   // changeFilter = e => {
   //   this.setState({ filter: e.currentTarget.value });
   // };
  
-
+  loadMore = () => {
+    this.setState(prev => ({
+      page: (prev.page += 1),
+    }));
+  };
  
 
-  render() {
-    const {  searchWord} = this.state;
-    return (<div><Searchbar onSubm={this.handleFormSubmit}/>
-    <ImageGallery  searchWord={searchWord}></ImageGallery>
-    </div>
-
-     )}
-}     
+  render() { const {  searchWord,page} = this.state;
+  return (<div><Searchbar onSubm={this.handleFormSubmit}/>
+  <ImageGallery  searchWord={searchWord} page={page} ></ImageGallery>
+  <button className='Button' type="button" onClick={this.loadMore} >Load More</button>
+  </div>)}
+   
+  }   
        
-        
+  // onLoadMoreClick={this.loadMore}   
 // 30040272-179178153c29e3da83ceec1ea
 // const BASEURL = 'https://pixabay.com/api/';
 // const keyApiPix = '30040272-179178153c29e3da83ceec1ea';

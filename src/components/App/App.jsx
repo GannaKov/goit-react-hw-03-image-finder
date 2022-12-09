@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Searchbar } from 'components/Searchbar/Searchbar';
 import { ImageGallery } from 'components/ImageGallery/ImageGallery';
-
+import { LoadMoreBtn } from 'components/Button/Button';
 
 // import { fetchPhotos } from 'components/FetchApi';
 // import axios from 'axios';
@@ -36,7 +36,7 @@ export class App extends Component {
   render() { const {  searchWord,page} = this.state;
   return (<div><Searchbar onSubm={this.handleFormSubmit}/>
   <ImageGallery  searchWord={searchWord} page={page} ></ImageGallery>
-  <button className='Button' type="button" onClick={this.loadMore} >Load More</button>
+  <LoadMoreBtn  onLoadMoreClick={this.loadMore} >Load More</LoadMoreBtn>
   </div>)}
    
   }   

@@ -12,7 +12,7 @@ export class Searchbar extends Component {
     handleSubmit = evt => {
       evt.preventDefault();
       if (this.state.searchWord.trim() === '') {
-        alert('Введите имя покемона.');
+        alert('Введите ....');
         return;
       }
       

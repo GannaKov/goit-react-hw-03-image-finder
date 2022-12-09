@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Searchbar } from 'components/Searchbar/Searchbar';
 import { ImageGallery } from 'components/ImageGallery/ImageGallery';
-// import '../../../src/styles.css';
+
 
 // import { fetchPhotos } from 'components/FetchApi';
 // import axios from 'axios';
@@ -11,30 +11,30 @@ import { ImageGallery } from 'components/ImageGallery/ImageGallery';
 
 export class App extends Component {
   state = { searchWord:"",
-    photos:[]
+    
   };
 
-  componentDidUpdate(prevProps, prevState) {
-    const prevWord = prevState.searchWord;
-    const nextWord = this.state.searchWord;
-   
-    if (prevWord !== nextWord) {let page=1
-      // this.setState({ status: Status.PENDING });
-console.log("Ch",prevWord, nextWord)
-const BASEURL = 'https://pixabay.com/api/';
-const keyApiPix = '30040272-179178153c29e3da83ceec1ea';
-fetch(`${BASEURL}?key=${keyApiPix}&q=${nextWord}&image_type=photo&orientation=horizontal&safesearch=true&per_page=12&page=${page}`)
-.then(response=>response.json())
- .then(photos=>this.setState({photos:photos.hits}))
+//   componentDidUpdate(prevProps, prevState) {
+//     const prevWord = prevState.searchWord;
+//     const nextWord = this.state.searchWord;
+//     const { photos } = this.state;
+//     if (prevWord !== nextWord) {let page=1
+//       // this.setState({ status: Status.PENDING });
+// console.log("Ch",prevWord, nextWord)
+// // const BASEURL = 'https://pixabay.com/api/';
+// // const keyApiPix = '30040272-179178153c29e3da83ceec1ea';
+// fetch(`${BASEURL}?key=${keyApiPix}&q=${nextWord}&image_type=photo&orientation=horizontal&safesearch=true&per_page=12&page=${page}`)
+// .then(response=>response.json())
+//  .then(photos=>this.setState({photos:[...photos, ...photos.hits]}))
  
      
-      // fetchPhotos
-      //     .fetchApi(nextName)
-      //     .then(pokemon => this.setState({ pokemon, status: Status.RESOLVED }))
-      //     .catch(error => this.setState({ error, status: Status.REJECTED }));
+//       // fetchPhotos
+//       //     .fetchApi(nextName)
+//       //     .then(pokemon => this.setState({ pokemon, status: Status.RESOLVED }))
+//       //     .catch(error => this.setState({ error, status: Status.REJECTED }));
     
-    }
-  }
+//     }
+//   }
 
   handleFormSubmit = searchWord => {
     this.setState({ searchWord });
@@ -48,9 +48,10 @@ fetch(`${BASEURL}?key=${keyApiPix}&q=${nextWord}&image_type=photo&orientation=ho
 
  
 
-  render() {const photosArr=this.state.photos;
+  render() {
+    const {  searchWord} = this.state;
     return (<div><Searchbar onSubm={this.handleFormSubmit}/>
-    <ImageGallery photos={photosArr}></ImageGallery>
+    <ImageGallery  searchWord={searchWord}></ImageGallery>
     </div>
 
      )}

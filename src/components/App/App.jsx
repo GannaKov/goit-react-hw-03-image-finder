@@ -42,7 +42,7 @@ toggleModal=()=>{this.setState(({showModal})=>({showModal:!showModal}))}
   return (<div><Searchbar onSubm={this.handleFormSubmit}/>
   <ImageGallery  searchWord={searchWord} page={page} onImgClick={this.toggleModal} shereSrcForModal={this.shereSrcForModal}/>
   <LoadMoreBtn  onLoadMoreClick={this.loadMore} >Load More</LoadMoreBtn>
-  {showModal &&(<Modal src={largeImgData.src} alt={largeImgData.alt}/>)}
+  {showModal &&(<Modal src={largeImgData.src} alt={largeImgData.alt} onImgClick={this.toggleModal}/>)}
   </div>)}
    
   }   

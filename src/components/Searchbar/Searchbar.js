@@ -5,6 +5,7 @@ export class Searchbar extends Component {
     state = {
       searchWord: "",
     };
+    
     handleChange = evt => {
       this.setState({ searchWord:evt.currentTarget.value.toLowerCase()});
     };

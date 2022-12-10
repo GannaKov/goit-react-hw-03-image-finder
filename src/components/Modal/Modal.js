@@ -10,13 +10,13 @@ componentDidMount() {
   }
 
   handleKeyDown=(evt)=>{ if (evt.code === "Escape"){
-    this.props.onImgClick()}}
+    this.props.onClose()}}
  
 render(){
-    const {src,alt,onImgClick}=this.props;
+    const {src,alt,onClose}=this.props;
     return(
     <div className="Overlay" onClick={() => {
-        onImgClick();    
+        onClose();    
       }}
       >
 <div className="Modal">

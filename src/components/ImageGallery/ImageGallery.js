@@ -11,7 +11,7 @@ const Status = {
 };
 
 export class ImageGallery extends Component{
-  state={
+  state={page:1,
     photos:[],
     status: Status.IDLE,
     error: null,}
@@ -22,9 +22,9 @@ KEY = '30040272-179178153c29e3da83ceec1ea';
 componentDidUpdate(prevProps, prevState) {
   const prevWord = prevProps.searchWord;
   const nextWord = this.props.searchWord;
- const {page}=this.props;
+ const {page}=this.state;
   
-  if (prevWord !== nextWord||prevProps.page!==page) {
+  if (prevWord !== nextWord||prevState.page!==page) {
 
     this.setState({ status: Status.PENDING });
   fetch(`${this.BASEURL}?key=${this.KEY}&q=${nextWord}&image_type=photo&orientation=horizontal&safesearch=true&per_page=12&page=${page}`)
@@ -41,7 +41,11 @@ componentDidUpdate(prevProps, prevState) {
 
 }
 
-
+loadMore = () => {
+  this.setState(prev => ({
+    page: (prev.page += 1),
+  }));
+};
 
 render(){ 
   const {photos, status,error}=this.state;

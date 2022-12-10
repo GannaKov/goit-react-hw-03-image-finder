@@ -37,9 +37,9 @@ componentDidUpdate(prevProps, prevState) {
 //   //this.props.ShowMod
 // }
 render(){const {photos, status,error}=this.state;
-console.log(this.props) 
-const { onImgClick } = this.props;
-console.log(onImgClick) 
+ 
+const { onImgClick, shereSrcForModal} = this.props;
+
 if (status === 'rejected') {
   return <ErrorView message={error.message} />;
 }
@@ -47,7 +47,8 @@ if (status === 'resolved') {
   return  (
     <ul className="ImageGallery">
     {photos.map(photo => (
-      <ImageGalleryItem  key={photo.id} photo={photo} onImgClick={onImgClick}>
+      <ImageGalleryItem  
+      key={photo.id} photo={photo} onImgClick={onImgClick} shereSrcForModal={shereSrcForModal}>
       </ImageGalleryItem>
     ))}
     </ul>);

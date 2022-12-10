@@ -21,8 +21,6 @@ toggleModal=()=>{this.setState(({showModal})=>({showModal:!showModal}))}
 
   handleFormSubmit = searchWord => {
     this.setState({ searchWord,page:1 });
-
-
   };
   // changeFilter = e => {
   //   this.setState({ filter: e.currentTarget.value });
@@ -34,10 +32,11 @@ toggleModal=()=>{this.setState(({showModal})=>({showModal:!showModal}))}
     }));
   };
  
+  shereSrcForModal=({srcLarge,altLarge})=>{this.setState({largeImgData:{srcLarge,altLarge}})}
 
   render() { const {  largeImgData,searchWord,page,showModal} = this.state;
   return (<div><Searchbar onSubm={this.handleFormSubmit}/>
-  <ImageGallery  searchWord={searchWord} page={page} onImgClick={this.toggleModal}/>
+  <ImageGallery  searchWord={searchWord} page={page} onImgClick={this.toggleModal} shereSrcForModal={this.shereSrcForModal}/>
   <LoadMoreBtn  onLoadMoreClick={this.loadMore} >Load More</LoadMoreBtn>
   {showModal &&(<Modal ><img src={largeImgData.src} alt={largeImgData.alt}></img></Modal>)}
   </div>)}

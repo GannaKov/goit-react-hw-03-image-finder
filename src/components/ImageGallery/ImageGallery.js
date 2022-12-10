@@ -1,5 +1,6 @@
 import React , { Component }from 'react';
 //  import PropTypes from 'prop-types';
+import { LoadMoreBtn } from 'components/Button/Button';
 import { ImageGalleryItem } from 'components/GalleryItem/GalleryItem'; 
 import { ErrorView } from 'components/ErrorView/ErrorView';
 const Status = {
@@ -17,6 +18,7 @@ export class ImageGallery extends Component{
  
   BASEURL = 'https://pixabay.com/api/';
 KEY = '30040272-179178153c29e3da83ceec1ea';
+
 componentDidUpdate(prevProps, prevState) {
   const prevWord = prevProps.searchWord;
   const nextWord = this.props.searchWord;
@@ -27,16 +29,22 @@ componentDidUpdate(prevProps, prevState) {
     this.setState({ status: Status.PENDING });
   fetch(`${this.BASEURL}?key=${this.KEY}&q=${nextWord}&image_type=photo&orientation=horizontal&safesearch=true&per_page=12&page=${page}`)
   .then(response=>response.json())
-   .then(photos=>this.setState({
+   .then(photos=>{this.setState({
     photos:[...prevState.photos,...photos.hits],
-    status: Status.RESOLVED  }))
-   .catch(error => this.setState({ error, status: Status.REJECTED }))}
+    status: Status.RESOLVED  })
+    
+    }
+    )
+   .catch(error => this.setState({ error, status: Status.REJECTED }))
+
 }
 
-// onClickPhoto=>{console.log(evt)
-//   //this.props.ShowMod
-// }
-render(){const {photos, status,error}=this.state;
+}
+
+
+
+render(){ 
+  const {photos, status,error}=this.state;
  
 const { onImgClick, shereSrcForModal} = this.props;
 
@@ -44,14 +52,16 @@ if (status === 'rejected') {
   return <ErrorView message={error.message} />;
 }
 if (status === 'resolved') {
-  return  (
-    <ul className="ImageGallery">
-    {photos.map(photo => (
-      <ImageGalleryItem  
-      key={photo.id} photo={photo} onImgClick={onImgClick} shereSrcForModal={shereSrcForModal}>
-      </ImageGalleryItem>
-    ))}
-    </ul>);
+  return  (<>
+  <ul className="ImageGallery" >
+  {photos.map(photo => (
+    <ImageGalleryItem  
+    key={photo.id} photo={photo} onImgClick={onImgClick} shereSrcForModal={shereSrcForModal}>
+    </ImageGalleryItem>
+  ))}
+  </ul>
+  {photos.length>0 &&(<LoadMoreBtn  onLoadMoreClick={this.loadMore} >Load More</LoadMoreBtn>)}</>
+     );
 }}
 
 }

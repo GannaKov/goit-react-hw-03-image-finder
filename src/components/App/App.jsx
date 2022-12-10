@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Searchbar } from 'components/Searchbar/Searchbar';
 import { ImageGallery } from 'components/ImageGallery/ImageGallery';
-import { LoadMoreBtn } from 'components/Button/Button';
+
 import { Modal } from 'components/Modal/Modal';
 
 // import { fetchPhotos } from 'components/FetchApi';
@@ -14,7 +14,7 @@ export class App extends Component {
   page:1,
   showModal:false,
   largeImgData: { src: '', alt: '' },
-    
+  status: "",
   };
 
 toggleModal=()=>{this.setState(({showModal})=>({showModal:!showModal}))}
@@ -22,9 +22,7 @@ toggleModal=()=>{this.setState(({showModal})=>({showModal:!showModal}))}
   handleFormSubmit = searchWord => {
     this.setState({ searchWord,page:1 });
   };
-  // changeFilter = e => {
-  //   this.setState({ filter: e.currentTarget.value });
-  // };
+  
  
   loadMore = () => {
     this.setState(prev => ({
@@ -34,14 +32,17 @@ toggleModal=()=>{this.setState(({showModal})=>({showModal:!showModal}))}
  
   shereSrcForModal=(srcLarge,altLarge)=>{ ;
   this.setState({largeImgData:{src:srcLarge,alt:altLarge}})
- 
 }
+
+
 
   render() { const {  largeImgData,searchWord,page,showModal} = this.state;
  
   return (<div><Searchbar onSubm={this.handleFormSubmit}/>
-  <ImageGallery  searchWord={searchWord} page={page} onImgClick={this.toggleModal} shereSrcForModal={this.shereSrcForModal}/>
-  <LoadMoreBtn  onLoadMoreClick={this.loadMore} >Load More</LoadMoreBtn>
+  <ImageGallery searchWord={searchWord} page={page} 
+  onImgClick={this.toggleModal} shereSrcForModal={this.shereSrcForModal}/>
+ 
+  
   {showModal &&(<Modal src={largeImgData.src} alt={largeImgData.alt} 
   onImgClick={this.toggleModal}/>)}
   </div>)}

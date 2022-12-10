@@ -32,13 +32,17 @@ toggleModal=()=>{this.setState(({showModal})=>({showModal:!showModal}))}
     }));
   };
  
-  shereSrcForModal=({srcLarge,altLarge})=>{this.setState({largeImgData:{srcLarge,altLarge}})}
+  shereSrcForModal=(srcLarge,altLarge)=>{ ;
+  this.setState({largeImgData:{src:srcLarge,alt:altLarge}})
+ 
+}
 
   render() { const {  largeImgData,searchWord,page,showModal} = this.state;
+ 
   return (<div><Searchbar onSubm={this.handleFormSubmit}/>
   <ImageGallery  searchWord={searchWord} page={page} onImgClick={this.toggleModal} shereSrcForModal={this.shereSrcForModal}/>
   <LoadMoreBtn  onLoadMoreClick={this.loadMore} >Load More</LoadMoreBtn>
-  {showModal &&(<Modal ><img src={largeImgData.src} alt={largeImgData.alt}></img></Modal>)}
+  {showModal &&(<Modal src={largeImgData.src} alt={largeImgData.alt}/>)}
   </div>)}
    
   }   

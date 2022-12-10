@@ -32,7 +32,14 @@ componentDidUpdate(prevProps, prevState) {
     status: Status.RESOLVED  }))
    .catch(error => this.setState({ error, status: Status.REJECTED }))}
 }
-render(){const {photos, status,error}=this.state
+
+// onClickPhoto=>{console.log(evt)
+//   //this.props.ShowMod
+// }
+render(){const {photos, status,error}=this.state;
+console.log(this.props) 
+const { onImgClick } = this.props;
+console.log(onImgClick) 
 if (status === 'rejected') {
   return <ErrorView message={error.message} />;
 }
@@ -40,13 +47,11 @@ if (status === 'resolved') {
   return  (
     <ul className="ImageGallery">
     {photos.map(photo => (
-      <ImageGalleryItem key={photo.id} photo={photo}>
+      <ImageGalleryItem  key={photo.id} photo={photo} onImgClick={onImgClick}>
       </ImageGalleryItem>
     ))}
     </ul>);
-}
-
-}
+}}
 
 }
 // export function ImageGallery({photos }) {

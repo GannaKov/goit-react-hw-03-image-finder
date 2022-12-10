@@ -2,20 +2,22 @@ import React, { Component } from 'react';
 import { Searchbar } from 'components/Searchbar/Searchbar';
 import { ImageGallery } from 'components/ImageGallery/ImageGallery';
 import { LoadMoreBtn } from 'components/Button/Button';
+import { Modal } from 'components/Modal/Modal';
 
 // import { fetchPhotos } from 'components/FetchApi';
-// import axios from 'axios';
-// import { ContactsList } from 'components/ContactList/ContactList';
-// import { Filter } from 'components/Fiter/Filter';
+
 
 
 export class App extends Component {
-  state = { searchWord:"",
-  page:1
+  state = { 
+    searchWord:"",
+  page:1,
+  showModal:false,
+  largeImgData: { src: '', alt: '' },
     
   };
 
-
+toggleModal=()=>{this.setState(({showModal})=>({showModal:!showModal}))}
 
   handleFormSubmit = searchWord => {
     this.setState({ searchWord,page:1 });
@@ -33,10 +35,11 @@ export class App extends Component {
   };
  
 
-  render() { const {  searchWord,page} = this.state;
+  render() { const {  largeImgData,searchWord,page,showModal} = this.state;
   return (<div><Searchbar onSubm={this.handleFormSubmit}/>
-  <ImageGallery  searchWord={searchWord} page={page} ></ImageGallery>
+  <ImageGallery  searchWord={searchWord} page={page} onImgClick={this.toggleModal}/>
   <LoadMoreBtn  onLoadMoreClick={this.loadMore} >Load More</LoadMoreBtn>
+  {showModal &&(<Modal ><img src={largeImgData.src} alt={largeImgData.alt}></img></Modal>)}
   </div>)}
    
   }   

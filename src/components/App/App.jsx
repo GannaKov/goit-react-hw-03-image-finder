@@ -14,12 +14,13 @@ export class App extends Component {
   showModal:false,
   largeImgData: { src: '', alt: '' },
   status: "",
+  
   };
 
 toggleModal=()=>{this.setState(({showModal})=>({showModal:!showModal}))}
 
   handleFormSubmit = searchWord => {
-    this.setState({ searchWord,page:1 });
+    this.setState({ searchWord,});
   };
   
  
@@ -39,7 +40,8 @@ toggleModal=()=>{this.setState(({showModal})=>({showModal:!showModal}))}
  
   return (<div><Searchbar onSubm={this.handleFormSubmit}/>
   <ImageGallery searchWord={searchWord} 
-  onImgClick={this.toggleModal} shereSrcForModal={this.shereSrcForModal}/>
+  onImgClick={this.toggleModal} shereSrcForModal={this.shereSrcForModal} 
+ />
  
   
   {showModal &&(<Modal src={largeImgData.src} alt={largeImgData.alt} 

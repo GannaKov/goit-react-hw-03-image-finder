@@ -4,6 +4,7 @@ import { LoadMoreBtn } from 'components/Button/Button';
 import { ImageGalleryItem } from 'components/GalleryItem/GalleryItem'; 
 import { ErrorView } from 'components/ErrorView/ErrorView';
 import { Loader } from 'components/Loader/Loader';
+import { FetchFotos } from 'components/FetchFotos/FetchFotos';
 const Status = {
   IDLE: 'idle',
   PENDING: 'pending',
@@ -15,7 +16,8 @@ export class ImageGallery extends Component{
   state={page:1,
     photos:[],
     status: Status.IDLE,
-    error: null,}
+    error: null,
+  totalHits:0,}
  
   BASEURL = 'https://pixabay.com/api/';
 KEY = '30040272-179178153c29e3da83ceec1ea';
@@ -24,16 +26,22 @@ componentDidUpdate(prevProps, prevState) {
   const prevWord = prevProps.searchWord;
   const nextWord = this.props.searchWord;
  const {page}=this.state;
-  
-  if (prevWord !== nextWord||prevState.page!==page) {
 
-    this.setState({ status: Status.PENDING });
-  fetch(`${this.BASEURL}?key=${this.KEY}&q=${nextWord}&image_type=photo&orientation=horizontal&safesearch=true&per_page=12&page=${page}`)
-  .then(response=>response.json())
+ if(prevWord !== nextWord){ console.log("ku")
+  this.setState({ 
+    photos:[],
+  })}
+ 
+  if (prevWord !== nextWord || prevState.page!==page) {
+
+    this.setState({ status: Status.PENDING })
+
+
+    FetchFotos(this.BASEURL,this.KEY,nextWord,page)
    .then(photos=>{this.setState({
-    photos:[...prevState.photos,...photos.hits],
-   
-    status: Status.RESOLVED  })
+    photos:[...prevState.photos,...photos.hits],  
+    status: Status.RESOLVED,
+  totalHits: photos.totalHits})
     
     }
     )
@@ -43,11 +51,17 @@ componentDidUpdate(prevProps, prevState) {
 
 }
 
-loadMore = () => {
+onLoadMoreClick=()=>{
   this.setState(prev => ({
     page: (prev.page += 1),
   }));
-};
+}
+
+// loadMore = () => {
+//   this.setState(prev => ({
+//     page: (prev.page += 1),
+//   }));
+// };
 
 render(){ 
   const {photos, status,error}=this.state;
@@ -66,7 +80,7 @@ if (status === 'resolved') {
     </ImageGalleryItem>
   ))}
   </ul>
-  {photos.length>0 &&(<LoadMoreBtn  onLoadMoreClick={this.loadMore} >Load More</LoadMoreBtn>)}
+  {photos.length>0 &&(<LoadMoreBtn  onLoadMoreClick={this.onLoadMoreClick} >Load More</LoadMoreBtn>)}
   
   </>
      );

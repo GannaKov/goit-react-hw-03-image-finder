@@ -3,6 +3,7 @@ import React , { Component }from 'react';
 import { LoadMoreBtn } from 'components/Button/Button';
 import { ImageGalleryItem } from 'components/GalleryItem/GalleryItem'; 
 import { ErrorView } from 'components/ErrorView/ErrorView';
+import { Loader } from 'components/Loader/Loader';
 const Status = {
   IDLE: 'idle',
   PENDING: 'pending',
@@ -31,6 +32,7 @@ componentDidUpdate(prevProps, prevState) {
   .then(response=>response.json())
    .then(photos=>{this.setState({
     photos:[...prevState.photos,...photos.hits],
+   
     status: Status.RESOLVED  })
     
     }
@@ -51,7 +53,7 @@ render(){
   const {photos, status,error}=this.state;
  
 const { onImgClick, shereSrcForModal} = this.props;
-
+if(status==="pending"){return <Loader/>}
 if (status === 'rejected') {
   return <ErrorView message={error.message} />;
 }
@@ -64,7 +66,9 @@ if (status === 'resolved') {
     </ImageGalleryItem>
   ))}
   </ul>
-  {photos.length>0 &&(<LoadMoreBtn  onLoadMoreClick={this.loadMore} >Load More</LoadMoreBtn>)}</>
+  {photos.length>0 &&(<LoadMoreBtn  onLoadMoreClick={this.loadMore} >Load More</LoadMoreBtn>)}
+  
+  </>
      );
 }}
 

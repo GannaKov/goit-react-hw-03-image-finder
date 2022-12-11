@@ -18,7 +18,8 @@ export class ImageGallery extends Component{
     photos:[],
     status: Status.IDLE,
     error: null,
-  totalHits:0,}
+  totalHits:0,
+  perPage:12}
  
   BASEURL = 'https://pixabay.com/api/';
 KEY = '30040272-179178153c29e3da83ceec1ea';
@@ -28,7 +29,7 @@ componentDidUpdate(prevProps, prevState) {
   const nextWord = this.props.searchWord;
  const {page}=this.state;
 
- if(prevWord !== nextWord){ console.log("ku")
+ if(prevWord !== nextWord){ 
   this.setState({ 
     page:1,
   })}
@@ -40,7 +41,8 @@ componentDidUpdate(prevProps, prevState) {
 
     FetchFotos(this.BASEURL,this.KEY,nextWord,page)
    .then(photos=>{
-    if(this.state.page === 1){ this.setState({ photos: photos.hits,
+    if(this.state.page === 1){ console.log(photos)
+      this.setState({ photos: photos.hits,
       status: Status.RESOLVED,
       totalHits: photos.totalHits })
      }
@@ -48,6 +50,7 @@ componentDidUpdate(prevProps, prevState) {
       photos:[...prevState.photos,...photos.hits],  
       status: Status.RESOLVED,
     totalHits: photos.totalHits})
+    
    }
     
     }
@@ -55,7 +58,9 @@ componentDidUpdate(prevProps, prevState) {
    .catch(error => this.setState({ error, status: Status.REJECTED }))
 
 }
-// autoscroll()
+if(this.state.page !== 1){;
+  autoscroll()}
+  
 }
 
 onLoadMoreClick=()=>{
@@ -70,9 +75,9 @@ onLoadMoreClick=()=>{
 //   }));
 // };
 
-render(){  
-  const {photos, status,error}=this.state;
- 
+render(){    
+  const {photos, status,error,page,totalHits,perPage}=this.state;
+  const totalPage = Math.ceil(totalHits / perPage);
 const { onImgClick, shereSrcForModal} = this.props;
 if(status==="pending"){return <Loader/>}
 if (status === 'rejected') {
@@ -80,16 +85,17 @@ if (status === 'rejected') {
 }
 if (status === 'resolved') {
   return  (<>
-  <div className='gallery'>
+  {photos &&
+  (<div className='gallery'>
     <ul className="ImageGallery" >
   {photos.map(photo => (
     <ImageGalleryItem  
     key={photo.id} photo={photo} onImgClick={onImgClick} shereSrcForModal={shereSrcForModal}>
     </ImageGalleryItem>
   ))}
-  </ul></div>
+  </ul></div>)}
   
-  {photos.length>0 &&(<LoadMoreBtn  onLoadMoreClick={this.onLoadMoreClick} >Load More</LoadMoreBtn>)}
+  {photos.length>0  && page<=totalPage?(<LoadMoreBtn  onLoadMoreClick={this.onLoadMoreClick} >Load More</LoadMoreBtn>):null}
   
   </>
   );

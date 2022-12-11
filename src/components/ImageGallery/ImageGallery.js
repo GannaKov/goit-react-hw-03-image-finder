@@ -5,6 +5,7 @@ import { ImageGalleryItem } from 'components/GalleryItem/GalleryItem';
 import { ErrorView } from 'components/ErrorView/ErrorView';
 import { Loader } from 'components/Loader/Loader';
 import { FetchFotos } from 'components/FetchFotos/FetchFotos';
+import { autoscroll } from 'components/App/Autoscroll';
 const Status = {
   IDLE: 'idle',
   PENDING: 'pending',
@@ -41,18 +42,20 @@ componentDidUpdate(prevProps, prevState) {
    .then(photos=>{
     if(this.state.page === 1){ this.setState({ photos: photos.hits,
       status: Status.RESOLVED,
-      totalHits: photos.totalHits })}
+      totalHits: photos.totalHits })
+     }
     else{this.setState({
       photos:[...prevState.photos,...photos.hits],  
       status: Status.RESOLVED,
-    totalHits: photos.totalHits})}
+    totalHits: photos.totalHits})
+   }
     
     }
     )
    .catch(error => this.setState({ error, status: Status.REJECTED }))
 
 }
-
+// autoscroll()
 }
 
 onLoadMoreClick=()=>{
@@ -67,7 +70,7 @@ onLoadMoreClick=()=>{
 //   }));
 // };
 
-render(){ 
+render(){  
   const {photos, status,error}=this.state;
  
 const { onImgClick, shereSrcForModal} = this.props;
@@ -77,17 +80,19 @@ if (status === 'rejected') {
 }
 if (status === 'resolved') {
   return  (<>
-  <ul className="ImageGallery" >
+  <div className='gallery'>
+    <ul className="ImageGallery" >
   {photos.map(photo => (
     <ImageGalleryItem  
     key={photo.id} photo={photo} onImgClick={onImgClick} shereSrcForModal={shereSrcForModal}>
     </ImageGalleryItem>
   ))}
-  </ul>
+  </ul></div>
+  
   {photos.length>0 &&(<LoadMoreBtn  onLoadMoreClick={this.onLoadMoreClick} >Load More</LoadMoreBtn>)}
   
   </>
-     );
+  );
 }}
 
 }

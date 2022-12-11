@@ -29,7 +29,7 @@ componentDidUpdate(prevProps, prevState) {
 
  if(prevWord !== nextWord){ console.log("ku")
   this.setState({ 
-    photos:[],
+    page:1,
   })}
  
   if (prevWord !== nextWord || prevState.page!==page) {
@@ -38,10 +38,14 @@ componentDidUpdate(prevProps, prevState) {
 
 
     FetchFotos(this.BASEURL,this.KEY,nextWord,page)
-   .then(photos=>{this.setState({
-    photos:[...prevState.photos,...photos.hits],  
-    status: Status.RESOLVED,
-  totalHits: photos.totalHits})
+   .then(photos=>{
+    if(this.state.page === 1){ this.setState({ photos: photos.hits,
+      status: Status.RESOLVED,
+      totalHits: photos.totalHits })}
+    else{this.setState({
+      photos:[...prevState.photos,...photos.hits],  
+      status: Status.RESOLVED,
+    totalHits: photos.totalHits})}
     
     }
     )

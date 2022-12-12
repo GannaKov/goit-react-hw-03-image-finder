@@ -58,8 +58,8 @@ componentDidUpdate(prevProps, prevState) {
    .catch(error => this.setState({ error, status: Status.REJECTED }))
 
 }
-if(this.state.page !== 1){;
-  autoscroll()}
+// if(this.state.page !== 1){;
+//   autoscroll()}
   
 }
 

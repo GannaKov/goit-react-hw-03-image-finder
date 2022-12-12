@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Toaster } from 'react-hot-toast'
 import { GlobalStyle } from 'CreateGlobalStyle';
 import { Searchbar } from 'components/Searchbar/Searchbar';
 import { ImgGallery } from 'components/ImageGallery/ImageGallery';
@@ -46,7 +47,22 @@ loadMore = () => {
   render() { const {  largeImgData,searchWord,showModal,page} = this.state;
  
   return (
-    <div><GlobalStyle /><Searchbar onSubm={this.handleFormSubmit}/>
+    <div><GlobalStyle /><Toaster toastOptions={{
+      // success: {
+      //   style: {
+      //     background: 'green',
+      //   },
+      // },
+      error: {duration: 6000,
+        style: { border: '1px solid red',
+        padding: '16px',
+        
+          minWidth: '450px',
+         
+        },
+      },
+    }}/>
+    <Searchbar onSubm={this.handleFormSubmit}/>
   <ImgGallery searchWord={searchWord} loadMore={this.loadMore} page={page}
   onImgClick={this.toggleModal} shereSrcForModal={this.shereSrcForModal} 
  />

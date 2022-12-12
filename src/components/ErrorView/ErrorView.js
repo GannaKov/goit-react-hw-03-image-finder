@@ -1,5 +1,7 @@
-export  function ErrorView({ message }) {
+//import React from 'react';
+import toast from 'react-hot-toast'
+export  function ErrorView({ message }) {console.log("js")
     
-      alert (`Error ${message} `)
+    toast.error("aaaa");
     
   }

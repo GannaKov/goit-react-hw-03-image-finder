@@ -1,9 +1,10 @@
 import React , { Component }from 'react';
+import toast from 'react-hot-toast'
 //  import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
 import { LoadMoreBtn } from 'components/Button/Button';
 import { ImgGalleryItem } from 'components/GalleryItem/GalleryItem'; 
-import { ErrorView } from 'components/ErrorView/ErrorView';
+//import { ErrorView } from 'components/ErrorView/ErrorView';
 import { Loader } from 'components/Loader/Loader';
 import { FetchFotos } from 'components/FetchFotos/FetchFotos';
 import { ImageGallery } from './ImageGallery.styled';
@@ -57,7 +58,10 @@ componentDidUpdate(prevProps, prevState) {
     
     }
     )
-   .catch(error => this.setState({ error, status: Status.REJECTED }))
+   .catch(  toast.error("aaaa",{duration: 4000,
+    position: 'top-center'}, )
+    //error => this.setState({ error, status: Status.REJECTED })
+    )
 
 }
 if(this.props.page !== 1){;
@@ -71,14 +75,14 @@ onLoadMoreClick = () => {
 };
  
 render(){  
-  const {photos, status,error,totalHits,perPage}=this.state;
+  const {photos, status,totalHits,perPage}=this.state;
   const totalPage = Math.ceil(totalHits / perPage);
   
 const { onImgClick, shereSrcForModal} = this.props;
 if(status==="pending"){return <Loader/>}
-if (status === 'rejected') {
-  return <ErrorView message={error.message} />;
-}
+// if (status === 'rejected') {
+//   return <ErrorView message={"aaaaaaaaaaa"} />;
+// }
 if (status === 'resolved') {
   return  (<>
   {photos &&

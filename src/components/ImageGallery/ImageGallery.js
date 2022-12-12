@@ -26,6 +26,7 @@ export class ImgGallery extends Component{
 KEY = '30040272-179178153c29e3da83ceec1ea';
 
 componentDidUpdate(prevProps, prevState) {
+  console.log("componentDidUpdate")
   const prevWord = prevProps.searchWord;
   const nextWord = this.props.searchWord;
  const {page}=this.state;

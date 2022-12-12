@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
-export const Title=styled.h1`text-align: center;
-text-transform: uppercase;
-margin-bottom: 30px;
-`
+// export const .App {
+//     display: grid;
+//     grid-template-columns: 1fr;
+//     grid-gap: 16px;
+//     padding-bottom: 24px;
+//   }

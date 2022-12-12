@@ -1,6 +1,7 @@
 import React from 'react';
+import { Button } from './Button.styled';
 //  import PropTypes from 'prop-types';
 export function LoadMoreBtn ({onLoadMoreClick}){
     return( 
-    <button className='Button' type="button" onClick={()=>onLoadMoreClick()} >Load More</button>)
+    <Button type="button" onClick={()=>onLoadMoreClick()} >Load More</Button>)
 }

@@ -1,6 +1,6 @@
 import React , {Component} from 'react';
 //  import PropTypes from 'prop-types';
-
+import { Overlay, ModalDiv} from './Modal.styled';
 export class Modal extends Component {state={}
 componentDidMount() {
     window.addEventListener('keydown', this.handleKeyDown);
@@ -15,14 +15,14 @@ componentDidMount() {
 render(){
     const {src,alt,onClose}=this.props;
     return(
-    <div className="Overlay" onClick={() => {
+    <Overlay  onClick={() => {
         onClose();    
       }}
       >
-<div className="Modal">
+<ModalDiv>
   <img src={src} alt={alt} /> 
-</div>
-</div>
+</ModalDiv>
+</Overlay>
 )}}
 
 

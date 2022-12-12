@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { GlobalStyle } from 'CreateGlobalStyle';
 import { Searchbar } from 'components/Searchbar/Searchbar';
 import { ImgGallery } from 'components/ImageGallery/ImageGallery';
 
@@ -38,7 +39,8 @@ toggleModal=()=>{this.setState(({showModal})=>({showModal:!showModal}))}
 
   render() { const {  largeImgData,searchWord,showModal} = this.state;
  
-  return (<div><Searchbar onSubm={this.handleFormSubmit}/>
+  return (
+    <div><GlobalStyle /><Searchbar onSubm={this.handleFormSubmit}/>
   <ImgGallery searchWord={searchWord} 
   onImgClick={this.toggleModal} shereSrcForModal={this.shereSrcForModal} 
  />

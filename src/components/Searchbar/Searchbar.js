@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {FaSistrix} from 'react-icons/fa';
 //  import PropTypes from 'prop-types';
 import { SearchbarHeader , SearchForm,SearchFormButton, SearchFormButtonLabel, SearchFormInput  } from './SearchBar.styled';
 
@@ -32,7 +33,7 @@ export class Searchbar extends Component {
       <SearchbarHeader> 
       <SearchForm  onSubmit={this.handleSubmit}>
       <SearchFormButton type="submit" >
-        <SearchFormButtonLabel>Search</SearchFormButtonLabel>
+        <SearchFormButtonLabel><FaSistrix size={24}/></SearchFormButtonLabel>
       </SearchFormButton>
   
       <SearchFormInput 
@@ -48,7 +49,8 @@ export class Searchbar extends Component {
     }
   }
 
-//   <Form onSubmit={this.handleSubmit}>
+//   HiOutlineMagnifyingGlass
+//<Form onSubmit={this.handleSubmit}>
 //           <FormLabel>
 //             Name
 //             <FormInput

@@ -1,5 +1,6 @@
 import React , { Component }from 'react';
 //  import PropTypes from 'prop-types';
+import { nanoid } from 'nanoid';
 import { LoadMoreBtn } from 'components/Button/Button';
 import { ImgGalleryItem } from 'components/GalleryItem/GalleryItem'; 
 import { ErrorView } from 'components/ErrorView/ErrorView';
@@ -7,6 +8,7 @@ import { Loader } from 'components/Loader/Loader';
 import { FetchFotos } from 'components/FetchFotos/FetchFotos';
 import { ImageGallery } from './ImageGallery.styled';
 import { autoscroll } from 'components/App/Autoscroll';
+
 const Status = {
   IDLE: 'idle',
   PENDING: 'pending',
@@ -39,13 +41,13 @@ componentDidUpdate(prevProps, prevState) {
 
     FetchFotos(this.BASEURL,this.KEY,nextWord,page)
    .then(photos=>{
-    if(this.props.page === 1){ console.log(photos)
-      console.log("this.props.page1",this.props.page )
+    if(this.props.page === 1){ 
+     
       this.setState({ photos: photos.hits,
       status: Status.RESOLVED,
       totalHits: photos.totalHits })
      }
-    else{  console.log("this.props.page2",this.props.page )
+    else{ 
       this.setState({
       photos:[...prevState.photos,...photos.hits],  
       status: Status.RESOLVED,
@@ -63,24 +65,15 @@ if(this.props.page !== 1){;
   
 }
 
-// onLoadMoreClick=()=>{
-//   this.setState(prev => ({
-//     page: (prev.page += 1),
-//   }));
-//   console.log("page in LoadMore", this.state.page)
-// }
 
-// loadMore = () => {
-//   this.setState(prev => ({
-//     page: (prev.page += 1),
-//   }));
-// };
 onLoadMoreClick = () => {
   this.props.loadMore();
 };
-render(){    
-  const {photos, status,error}=this.state;
-  // const totalPage = Math.ceil(totalHits / perPage);
+ 
+render(){  
+  const {photos, status,error,totalHits,perPage}=this.state;
+  const totalPage = Math.ceil(totalHits / perPage);
+  
 const { onImgClick, shereSrcForModal} = this.props;
 if(status==="pending"){return <Loader/>}
 if (status === 'rejected') {
@@ -93,12 +86,12 @@ if (status === 'resolved') {
     <ImageGallery  >
   {photos.map(photo => (
     <ImgGalleryItem  
-    key={photo.id} photo={photo} onImgClick={onImgClick} shereSrcForModal={shereSrcForModal}>
+    key={nanoid()} photo={photo} onImgClick={onImgClick} shereSrcForModal={shereSrcForModal}>
     </ImgGalleryItem>
   ))}
   </ImageGallery></div>)}
   
-  {photos.length>0  && (<LoadMoreBtn  onLoadMoreClick={this.onLoadMoreClick} >Load More</LoadMoreBtn>)}
+  {photos.length>0  && this.props.page<totalPage ? (<LoadMoreBtn  onLoadMoreClick={this.onLoadMoreClick} >Load More</LoadMoreBtn>):null}
   
   </>
   );

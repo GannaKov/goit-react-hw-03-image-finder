@@ -1,7 +1,7 @@
 import React , { Component }from 'react';
 //  import PropTypes from 'prop-types';
 import { LoadMoreBtn } from 'components/Button/Button';
-import { ImageGalleryItem } from 'components/GalleryItem/GalleryItem'; 
+import { ImgGalleryItem } from 'components/GalleryItem/GalleryItem'; 
 import { ErrorView } from 'components/ErrorView/ErrorView';
 import { Loader } from 'components/Loader/Loader';
 import { FetchFotos } from 'components/FetchFotos/FetchFotos';
@@ -77,8 +77,8 @@ onLoadMoreClick=()=>{
 // };
 
 render(){    
-  const {photos, status,error,page,totalHits,perPage}=this.state;
-  const totalPage = Math.ceil(totalHits / perPage);
+  const {photos, status,error}=this.state;
+  // const totalPage = Math.ceil(totalHits / perPage);
 const { onImgClick, shereSrcForModal} = this.props;
 if(status==="pending"){return <Loader/>}
 if (status === 'rejected') {
@@ -90,9 +90,9 @@ if (status === 'resolved') {
   (<Gallery>
     <ImageGallery  >
   {photos.map(photo => (
-    <ImageGalleryItem  
+    <ImgGalleryItem  
     key={photo.id} photo={photo} onImgClick={onImgClick} shereSrcForModal={shereSrcForModal}>
-    </ImageGalleryItem>
+    </ImgGalleryItem>
   ))}
   </ImageGallery></Gallery>)}
   
@@ -103,4 +103,6 @@ if (status === 'resolved') {
 }}
 
 }
+// const {photos, status,error,page,totalHits,perPage}=this.state;
+//   const totalPage = Math.ceil(totalHits / perPage);
 // page<=totalPage?

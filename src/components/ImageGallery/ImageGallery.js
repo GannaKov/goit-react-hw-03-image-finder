@@ -30,7 +30,7 @@ componentDidUpdate(prevProps, prevState) {
   const prevWord = prevProps.searchWord;
   const nextWord = this.props.searchWord;
  const {page}=this.state;
-
+ console.log("componentDidUpdate", page)
  if(prevWord !== nextWord){ 
   this.setState({ 
     page:1,
@@ -42,13 +42,14 @@ componentDidUpdate(prevProps, prevState) {
 
 
     FetchFotos(this.BASEURL,this.KEY,nextWord,page)
-   .then(photos=>{
+   .then(photos=>{console.log("in fetch componentDidUpdate")
     if(this.state.page === 1){ console.log(photos)
       this.setState({ photos: photos.hits,
       status: Status.RESOLVED,
       totalHits: photos.totalHits })
      }
-    else{this.setState({
+    else{console.log("in else fetch componentDidUpdate")
+      this.setState({
       photos:[...prevState.photos,...photos.hits],  
       status: Status.RESOLVED,
     totalHits: photos.totalHits})

@@ -18,13 +18,13 @@ export class Searchbar extends Component {
       }
       
       this.props.onSubm(this.state.searchWord);
-      this.reset();
+      // this.reset();
     };
 
-    reset = () => {
-      this.setState({searchWord:"" });
-    };
-    
+    // reset = () => {
+    //   this.setState({searchWord:"" });
+    // };
+
     render() {
     //   const { name, number } = this.state;
       return ( 

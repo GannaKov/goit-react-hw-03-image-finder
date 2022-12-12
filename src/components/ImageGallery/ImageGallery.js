@@ -95,10 +95,11 @@ if (status === 'resolved') {
   ))}
   </ul></div>)}
   
-  {photos.length>0  && page<=totalPage?(<LoadMoreBtn  onLoadMoreClick={this.onLoadMoreClick} >Load More</LoadMoreBtn>):null}
+  {photos.length>0  && (<LoadMoreBtn  onLoadMoreClick={this.onLoadMoreClick} >Load More</LoadMoreBtn>)}
   
   </>
   );
 }}
 
 }
+// page<=totalPage?

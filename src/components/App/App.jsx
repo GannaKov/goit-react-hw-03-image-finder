@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Searchbar } from 'components/Searchbar/Searchbar';
-import { ImageGallery } from 'components/ImageGallery/ImageGallery';
+import { ImgGallery } from 'components/ImageGallery/ImageGallery';
 
 import { Modal } from 'components/Modal/Modal';
 
@@ -39,7 +39,7 @@ toggleModal=()=>{this.setState(({showModal})=>({showModal:!showModal}))}
   render() { const {  largeImgData,searchWord,showModal} = this.state;
  
   return (<div><Searchbar onSubm={this.handleFormSubmit}/>
-  <ImageGallery searchWord={searchWord} 
+  <ImgGallery searchWord={searchWord} 
   onImgClick={this.toggleModal} shereSrcForModal={this.shereSrcForModal} 
  />
  

@@ -5,6 +5,7 @@ import { ImageGalleryItem } from 'components/GalleryItem/GalleryItem';
 import { ErrorView } from 'components/ErrorView/ErrorView';
 import { Loader } from 'components/Loader/Loader';
 import { FetchFotos } from 'components/FetchFotos/FetchFotos';
+import { ImageGallery,Gallery } from './ImageGallery.styled';
 // import { autoscroll } from 'components/App/Autoscroll';
 const Status = {
   IDLE: 'idle',
@@ -13,7 +14,7 @@ const Status = {
   REJECTED: 'rejected',
 };
 
-export class ImageGallery extends Component{
+export class ImgGallery extends Component{
   state={page:1,
     photos:[],
     status: Status.IDLE,
@@ -86,14 +87,14 @@ if (status === 'rejected') {
 if (status === 'resolved') {
   return  (<>
   {photos &&
-  (<div className='gallery'>
-    <ul className="ImageGallery" >
+  (<Gallery>
+    <ImageGallery  >
   {photos.map(photo => (
     <ImageGalleryItem  
     key={photo.id} photo={photo} onImgClick={onImgClick} shereSrcForModal={shereSrcForModal}>
     </ImageGalleryItem>
   ))}
-  </ul></div>)}
+  </ImageGallery></Gallery>)}
   
   {photos.length>0  && (<LoadMoreBtn  onLoadMoreClick={this.onLoadMoreClick} >Load More</LoadMoreBtn>)}
   

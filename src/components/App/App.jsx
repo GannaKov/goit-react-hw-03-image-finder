@@ -53,7 +53,7 @@ loadMore = () => {
       //     background: 'green',
       //   },
       // },
-      error: {duration: 6000,
+      error: {duration: 3000,
         style: { border: '1px solid red',
         padding: '16px',
         

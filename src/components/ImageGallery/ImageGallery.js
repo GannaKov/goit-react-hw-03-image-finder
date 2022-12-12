@@ -41,29 +41,35 @@ componentDidUpdate(prevProps, prevState) {
 
 
     FetchFotos(this.BASEURL,this.KEY,nextWord,page)
-   .then(photos=>{
+   .then(photos=>{console.log(photos.hits.length)
+    if(photos.hits.length===0){toast.error('введите нормально');}
     if(this.props.page === 1){ 
      
       this.setState({ photos: photos.hits,
       status: Status.RESOLVED,
       totalHits: photos.totalHits })
+      
      }
     else{ 
       this.setState({
       photos:[...prevState.photos,...photos.hits],  
       status: Status.RESOLVED,
     totalHits: photos.totalHits})
+   
+  }
     
    }
     
-    }
+    
     )
-   .catch(  toast.error("aaaa",{duration: 4000,
-    position: 'top-center'}, )
-    //error => this.setState({ error, status: Status.REJECTED })
+   .catch( () => 
+    {this.setState({  status: Status.REJECTED })
+    toast.error("aaaa",{duration: 4000,
+      position: 'top-center'}, ) }
     )
 
 }
+
 if(this.props.page !== 1){;
   autoscroll()}
   
@@ -81,8 +87,9 @@ render(){
 const { onImgClick, shereSrcForModal} = this.props;
 if(status==="pending"){return <Loader/>}
 // if (status === 'rejected') {
-//   return <ErrorView message={"aaaaaaaaaaa"} />;
+//    ;
 // }
+
 if (status === 'resolved') {
   return  (<>
   {photos &&

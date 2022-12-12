@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import toast from 'react-hot-toast'
 import {FaSistrix} from 'react-icons/fa';
 //  import PropTypes from 'prop-types';
 import { SearchbarHeader , SearchForm,SearchFormButton, SearchFormButtonLabel, SearchFormInput  } from './SearchBar.styled';
@@ -15,7 +16,7 @@ export class Searchbar extends Component {
     handleSubmit = evt => {
       evt.preventDefault();
       if (this.state.searchWord.trim() === '') {
-        alert('Введите ....');
+        toast.error('Input smh');
         return;
       }
       

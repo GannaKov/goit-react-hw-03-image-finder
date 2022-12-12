@@ -5,7 +5,7 @@ import { ImageGalleryItem } from 'components/GalleryItem/GalleryItem';
 import { ErrorView } from 'components/ErrorView/ErrorView';
 import { Loader } from 'components/Loader/Loader';
 import { FetchFotos } from 'components/FetchFotos/FetchFotos';
-import { autoscroll } from 'components/App/Autoscroll';
+// import { autoscroll } from 'components/App/Autoscroll';
 const Status = {
   IDLE: 'idle',
   PENDING: 'pending',

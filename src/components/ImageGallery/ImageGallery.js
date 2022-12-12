@@ -31,12 +31,12 @@ componentDidUpdate(prevProps, prevState) {
   const nextWord = this.props.searchWord;
  const {page}=this.state;
  console.log("componentDidUpdate", page)
- if(prevWord !== nextWord){ 
+ if(prevWord !== nextWord){ console.log ("in if",prevWord,nextWord )
   this.setState({ 
     page:1,
   })}
  
-  if (prevWord !== nextWord || prevState.page!==page) {
+  if ( prevWord !== nextWord || prevState.page!==page) {console.log ("in 2 if",prevState.page,page )
 
     this.setState({ status: Status.PENDING })
 

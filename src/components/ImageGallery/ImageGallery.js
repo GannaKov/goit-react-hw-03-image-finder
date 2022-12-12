@@ -35,7 +35,7 @@ componentDidUpdate(prevProps, prevState) {
   this.setState({ 
     page:1,
   })}
- 
+  console.log("between if componentDidUpdate")
   if ( prevWord !== nextWord || prevState.page!==page) {console.log ("in 2 if","prevPage",prevState.page,"nextPage",page )
 
     this.setState({ status: Status.PENDING })

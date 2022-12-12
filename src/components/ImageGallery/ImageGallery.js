@@ -5,8 +5,8 @@ import { ImgGalleryItem } from 'components/GalleryItem/GalleryItem';
 import { ErrorView } from 'components/ErrorView/ErrorView';
 import { Loader } from 'components/Loader/Loader';
 import { FetchFotos } from 'components/FetchFotos/FetchFotos';
-import { ImageGallery,Gallery } from './ImageGallery.styled';
-// import { autoscroll } from 'components/App/Autoscroll';
+import { ImageGallery } from './ImageGallery.styled';
+import { autoscroll } from 'components/App/Autoscroll';
 const Status = {
   IDLE: 'idle',
   PENDING: 'pending',
@@ -15,7 +15,7 @@ const Status = {
 };
 
 export class ImgGallery extends Component{
-  state={page:1,
+  state={
     photos:[],
     status: Status.IDLE,
     error: null,
@@ -26,29 +26,26 @@ export class ImgGallery extends Component{
 KEY = '30040272-179178153c29e3da83ceec1ea';
 
 componentDidUpdate(prevProps, prevState) {
-  console.log("componentDidUpdate")
+  
   const prevWord = prevProps.searchWord;
   const nextWord = this.props.searchWord;
- const {page}=this.state;
- console.log("componentDidUpdate", page)
- if(prevWord !== nextWord){ console.log ("in if","prevWord",prevWord, "nextWord",nextWord )
-  this.setState({ 
-    page:1,
-  })}
-  console.log("between if componentDidUpdate","prevPage",prevState.page,"nextPage",page )
-  if ( prevWord !== nextWord || prevState.page!==page) {console.log ("in 2 if","prevPage",prevState.page,"nextPage",page )
+ const {page}=this.props;
+
+  if ( prevWord !== nextWord || prevProps.page !==this.props.page) {
+   
 
     this.setState({ status: Status.PENDING })
 
 
     FetchFotos(this.BASEURL,this.KEY,nextWord,page)
-   .then(photos=>{console.log("in fetch componentDidUpdate")
-    if(this.state.page === 1){ console.log(photos)
+   .then(photos=>{
+    if(this.props.page === 1){ console.log(photos)
+      console.log("this.props.page1",this.props.page )
       this.setState({ photos: photos.hits,
       status: Status.RESOLVED,
       totalHits: photos.totalHits })
      }
-    else{console.log("in else fetch componentDidUpdate")
+    else{  console.log("this.props.page2",this.props.page )
       this.setState({
       photos:[...prevState.photos,...photos.hits],  
       status: Status.RESOLVED,
@@ -61,23 +58,26 @@ componentDidUpdate(prevProps, prevState) {
    .catch(error => this.setState({ error, status: Status.REJECTED }))
 
 }
-// if(this.state.page !== 1){;
-//   autoscroll()}
+if(this.props.page !== 1){;
+  autoscroll()}
   
 }
 
-onLoadMoreClick=()=>{
-  this.setState(prev => ({
-    page: (prev.page += 1),
-  }));
-}
+// onLoadMoreClick=()=>{
+//   this.setState(prev => ({
+//     page: (prev.page += 1),
+//   }));
+//   console.log("page in LoadMore", this.state.page)
+// }
 
 // loadMore = () => {
 //   this.setState(prev => ({
 //     page: (prev.page += 1),
 //   }));
 // };
-
+onLoadMoreClick = () => {
+  this.props.loadMore();
+};
 render(){    
   const {photos, status,error}=this.state;
   // const totalPage = Math.ceil(totalHits / perPage);
@@ -89,14 +89,14 @@ if (status === 'rejected') {
 if (status === 'resolved') {
   return  (<>
   {photos &&
-  (<Gallery>
+  (<div className="gallery">
     <ImageGallery  >
   {photos.map(photo => (
     <ImgGalleryItem  
     key={photo.id} photo={photo} onImgClick={onImgClick} shereSrcForModal={shereSrcForModal}>
     </ImgGalleryItem>
   ))}
-  </ImageGallery></Gallery>)}
+  </ImageGallery></div>)}
   
   {photos.length>0  && (<LoadMoreBtn  onLoadMoreClick={this.onLoadMoreClick} >Load More</LoadMoreBtn>)}
   

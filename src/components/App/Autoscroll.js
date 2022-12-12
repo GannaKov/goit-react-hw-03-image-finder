@@ -1,8 +1,8 @@
 export function autoscroll() {
-    if(document.querySelector('.Gallery'))
-    {console.log( document.querySelector('.Gallery'))
+    if(document.querySelector('.gallery'))
+    {console.log( document.querySelector('.gallery'))
     const { height: cardHeight } =
-    document.querySelector('.Gallery').firstElementChild.getBoundingClientRect();
+    document.querySelector('.gallery').firstElementChild.getBoundingClientRect();
   window.scrollBy({
     top: cardHeight * 1,
     behavior: 'smooth', });

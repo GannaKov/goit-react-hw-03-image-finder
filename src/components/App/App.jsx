@@ -10,7 +10,7 @@ import { Modal } from 'components/Modal/Modal';
 
 
 export class App extends Component {
-  state = { 
+  state = { page: 1,
     searchWord:"",
   showModal:false,
   largeImgData: { src: '', alt: '' },
@@ -21,7 +21,9 @@ export class App extends Component {
 toggleModal=()=>{this.setState(({showModal})=>({showModal:!showModal}))}
 
   handleFormSubmit = searchWord => {
-    this.setState({ searchWord,});
+    this.setState({ searchWord,
+    page:1});
+
   };
   
  
@@ -35,13 +37,17 @@ toggleModal=()=>{this.setState(({showModal})=>({showModal:!showModal}))}
   this.setState({largeImgData:{src:srcLarge,alt:altLarge}})
 }
 
+loadMore = () => {
+  this.setState(prev => ({
+    page: (prev.page += 1),
+  }));
+};
 
-
-  render() { const {  largeImgData,searchWord,showModal} = this.state;
+  render() { const {  largeImgData,searchWord,showModal,page} = this.state;
  
   return (
     <div><GlobalStyle /><Searchbar onSubm={this.handleFormSubmit}/>
-  <ImgGallery searchWord={searchWord} 
+  <ImgGallery searchWord={searchWord} loadMore={this.loadMore} page={page}
   onImgClick={this.toggleModal} shereSrcForModal={this.shereSrcForModal} 
  />
  

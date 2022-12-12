@@ -121,6 +121,7 @@ img {
 /*
  * Стили компонента ImageGallery
  */
+ .gallery {margin-bottom: 30px;}
 .ImageGallery {
   display: grid;
   max-width: calc(100vw - 48px);

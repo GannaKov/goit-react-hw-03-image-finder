@@ -24,6 +24,7 @@ export class Searchbar extends Component {
     reset = () => {
       this.setState({searchWord:"" });
     };
+    
     render() {
     //   const { name, number } = this.state;
       return ( 

@@ -42,7 +42,7 @@ componentDidUpdate(prevProps, prevState) {
 
     FetchFotos(this.BASEURL,this.KEY,nextWord,page)
    .then(photos=>{
-    if(photos.hits.length===0){toast.error('We did not find anything. Try again with new word!');}
+    if(photos.hits.length===0){toast.error('We did not find anything. Try again with a new word!');}
     if(this.props.page === 1){ 
      
       this.setState({ photos: photos.hits,

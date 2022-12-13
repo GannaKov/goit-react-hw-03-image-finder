@@ -3,8 +3,8 @@ import { Toaster } from 'react-hot-toast'
 import { GlobalStyle } from 'CreateGlobalStyle';
 import { Searchbar } from 'components/Searchbar/Searchbar';
 import { ImgGallery } from 'components/ImageGallery/ImageGallery';
-
 import { Modal } from 'components/Modal/Modal';
+import { AppDiv } from './App.styled';
 
 // import { fetchPhotos } from 'components/FetchApi';
 
@@ -28,11 +28,7 @@ toggleModal=()=>{this.setState(({showModal})=>({showModal:!showModal}))}
   };
   
  
-  // loadMore = () => {
-  //   this.setState(prev => ({
-  //     page: (prev.page += 1),
-  //   }));
-  // };
+  
  
   shereSrcForModal=(srcLarge,altLarge)=>{ ;
   this.setState({largeImgData:{src:srcLarge,alt:altLarge}})
@@ -47,12 +43,8 @@ loadMore = () => {
   render() { const {  largeImgData,searchWord,showModal,page} = this.state;
  
   return (
-    <div><GlobalStyle /><Toaster toastOptions={{
-      // success: {
-      //   style: {
-      //     background: 'green',
-      //   },
-      // },
+    <AppDiv><GlobalStyle /><Toaster toastOptions={{
+      
       error: {duration: 3000,
         style: { border: '1px solid red',
         padding: '16px',
@@ -70,22 +62,8 @@ loadMore = () => {
   
   {showModal &&(<Modal src={largeImgData.src} alt={largeImgData.alt} 
   onClose={this.toggleModal}/>)}
-  </div>)}
+  </AppDiv>)}
    
   }   
        
-  // onLoadMoreClick={this.loadMore}   
-// 30040272-179178153c29e3da83ceec1ea
-// const BASEURL = 'https://pixabay.com/api/';
-// const keyApiPix = '30040272-179178153c29e3da83ceec1ea';
-// export default async function fetchPhotos(keyWord, perPage, page) {
-//   const response = await axios.get(
-//     `${BASEURL}?key=${keyApiPix}&q=${keyWord}&image_type=photo&orientation=horizontal&safesearch=true&per_page=${perPage}&page=${page}`
-//   );
-
-//   return response;
-// }
-// onSubm={this.addContact}
-// handleChange={this.handleChange}
-// handleChange={this.handleChange}>
-// <GlobalStyle />
+  

@@ -56,4 +56,5 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.gallery {margin-bottom: 30px;} 
 `;

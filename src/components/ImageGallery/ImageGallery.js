@@ -1,6 +1,6 @@
 import React , { Component }from 'react';
 import toast from 'react-hot-toast'
-//  import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
 import { LoadMoreBtn } from 'components/Button/Button';
 import { ImgGalleryItem } from 'components/GalleryItem/GalleryItem'; 
@@ -8,7 +8,7 @@ import { ImgGalleryItem } from 'components/GalleryItem/GalleryItem';
 import { Loader } from 'components/Loader/Loader';
 import { FetchFotos } from 'components/FetchFotos/FetchFotos';
 import { ImageGallery } from './ImageGallery.styled';
-import { autoscroll } from 'components/App/Autoscroll';
+import { autoscroll } from 'components/Autoscroll';
 
 const Status = {
   IDLE: 'idle',
@@ -41,8 +41,8 @@ componentDidUpdate(prevProps, prevState) {
 
 
     FetchFotos(this.BASEURL,this.KEY,nextWord,page)
-   .then(photos=>{console.log(photos.hits.length)
-    if(photos.hits.length===0){toast.error('введите нормально');}
+   .then(photos=>{
+    if(photos.hits.length===0){toast.error('We did not find anything. Try again with new word!');}
     if(this.props.page === 1){ 
      
       this.setState({ photos: photos.hits,
@@ -64,7 +64,7 @@ componentDidUpdate(prevProps, prevState) {
     )
    .catch( () => 
     {this.setState({  status: Status.REJECTED })
-    toast.error("aaaa",{duration: 4000,
+    toast.error("Ups... Something is wrong. Try again!",{duration: 4000,
       position: 'top-center'}, ) }
     )
 
@@ -86,29 +86,31 @@ render(){
   
 const { onImgClick, shereSrcForModal} = this.props;
 if(status==="pending"){return <Loader/>}
-// if (status === 'rejected') {
-//    ;
-// }
+
 
 if (status === 'resolved') {
   return  (<>
-  {photos &&
-  (<div className="gallery">
-    <ImageGallery  >
-  {photos.map(photo => (
-    <ImgGalleryItem  
-    key={nanoid()} photo={photo} onImgClick={onImgClick} shereSrcForModal={shereSrcForModal}>
-    </ImgGalleryItem>
-  ))}
-  </ImageGallery></div>)}
-  
-  {photos.length>0  && this.props.page<totalPage ? (<LoadMoreBtn  onLoadMoreClick={this.onLoadMoreClick} >Load More</LoadMoreBtn>):null}
-  
-  </>
+    {photos &&
+    (<div className="gallery">
+      <ImageGallery  >
+    {photos.map(photo => (
+      <ImgGalleryItem  
+      key={nanoid()} photo={photo} onImgClick={onImgClick} shereSrcForModal={shereSrcForModal}>
+      </ImgGalleryItem>
+    ))}
+    </ImageGallery></div>)}
+    
+    {photos.length>0  && this.props.page<totalPage ? (<LoadMoreBtn  onLoadMoreClick={this.onLoadMoreClick} >Load More</LoadMoreBtn>):null}
+    
+    </>
   );
 }}
 
 }
-// const {photos, status,error,page,totalHits,perPage}=this.state;
-//   const totalPage = Math.ceil(totalHits / perPage);
-// page<=totalPage?
+ImgGallery.propTypes={    
+  searchWord:PropTypes.string.isRequired,
+  loadMore:PropTypes.func,
+  page:PropTypes.number.isRequired,
+  onImgClick:PropTypes.func,
+  shereSrcForModal:PropTypes.func,
+}

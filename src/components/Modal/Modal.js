@@ -1,6 +1,8 @@
 import React , {Component} from 'react';
-//  import PropTypes from 'prop-types';
+ import PropTypes from 'prop-types';
 import { Overlay, ModalDiv} from './Modal.styled';
+//import { ProgressBar } from 'react-loader-spinner';
+
 export class Modal extends Component {state={}
 componentDidMount() {
     window.addEventListener('keydown', this.handleKeyDown);
@@ -27,10 +29,8 @@ render(){
 
 
 
-// export function Modal ({src, alt}){console.log("modal",src, alt)
-//     return(<div className="Overlay">
-//     <div className="Modal">
-//       <img src={src} alt={alt} /> 
-//     </div>
-//   </div>)
-// }
+Modal.propTypes ={
+  onClose:PropTypes.func.isRequired,
+  src:PropTypes.string.isRequired,
+  alt:PropTypes.string.isRequired,
+}

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import toast from 'react-hot-toast'
 import {FaSistrix} from 'react-icons/fa';
-//  import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { SearchbarHeader , SearchForm,SearchFormButton, SearchFormButtonLabel, SearchFormInput  } from './SearchBar.styled';
 
 export class Searchbar extends Component {
@@ -21,15 +21,13 @@ export class Searchbar extends Component {
       }
       
       this.props.onSubm(this.state.searchWord);
-      // this.reset();
+     
     };
 
-    // reset = () => {
-    //   this.setState({searchWord:"" });
-    // };
+   
 
     render() {
-    //   const { name, number } = this.state;
+    
       return ( 
       <SearchbarHeader> 
       <SearchForm  onSubmit={this.handleSubmit}>
@@ -49,32 +47,7 @@ export class Searchbar extends Component {
       );
     }
   }
-
-//   HiOutlineMagnifyingGlass
-//<Form onSubmit={this.handleSubmit}>
-//           <FormLabel>
-//             Name
-//             <FormInput
-//               type="text"
-//               name="name"
-//               pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-//               title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-//               required
-//               value={name}
-//               onChange={this.handleChange}
-//             />
-//           </FormLabel>
-//           <FormLabel>
-//             Number
-//             <FormInput
-//               type="tel"
-//               name="number"
-//               pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-//               title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-//               required
-//               value={number}
-//               onChange={this.handleChange}
-//             />
-//           </FormLabel>
-//           <ModalSubmitBtn type="submit">Add Conract</ModalSubmitBtn>
-//         </Form>
+ 
+  Searchbar.propTypes = {
+    onSubm: PropTypes.func,
+  };
